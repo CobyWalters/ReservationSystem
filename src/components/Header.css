@@ -1,0 +1,43 @@
+.logo {
+    max-width: 84px;
+    max-height: 100px;
+    flex: 1;
+}
+
+.restaurantName {
+    font-size: 36px;
+    flex: 1;
+    margin-left: 10px;
+    min-width: fit-content;
+}
+
+.headerContainer {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+}
+
+.headerButton {
+    flex: 1;
+    max-width: 160px;
+    padding: 10px;
+    background-color: white;
+    color: #FF6161;
+    border: solid #FF6161 2px;
+    border-radius: 6px;
+    margin: 0px 25px;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.spacer {
+    width: max-content;
+    flex: 4;
+}
+
+.dividerLine {
+    color: black;
+    background-color: black;
+    height: 2px;
+    width: 98%;
+}

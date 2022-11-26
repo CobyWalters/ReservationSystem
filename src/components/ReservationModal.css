@@ -1,0 +1,81 @@
+.modalBackground {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContainer {
+    width: 500px;
+    height: 680px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: black 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.title {
+    margin: 0;
+}
+
+.titleButton {
+    border: none;
+    background: none;
+    font-size: 25px;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.reservationInfo {
+    color: #FF6161;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    margin: 10px 0px;
+}
+
+.logInButton {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: white;
+    color: #FF6161;
+    border: #FF6161 solid 2px;
+    border-radius: 5px;
+    font-size: 26px;
+    width: 200px;
+    cursor: pointer;
+}
+
+.input {
+    width: 210px;
+    height: 40px;
+    margin: 10px 10px 10px 20px;
+}
+
+.finishReservationButton {
+    width: 480px;
+    background-color: #FF6161;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 26px;
+    margin-top: 20px;
+    cursor: pointer;
+}
