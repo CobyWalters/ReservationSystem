@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "./LogInModal.css"
 
-const LogInModal = ({ closeModal }) => {
+const LogInModal = ({ closeModal, setLoggedIn, setPoints }) => {
     return(
         <div className="logInModalBackground">
             <div className="logInModalContainer">
@@ -12,7 +12,7 @@ const LogInModal = ({ closeModal }) => {
                 <div className="body">
                     <input className="input"placeholder="Username"></input>
                     <input className="input"placeholder="Password"></input>
-                    <button className="logInButton">Log In</button>
+                    <button onClick={()=>{setLoggedIn(true); setPoints(100); closeModal(false)}} className="logInButton">Log In</button>
                 </div>
             </div>
         </div>
