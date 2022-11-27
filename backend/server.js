@@ -9,8 +9,6 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-console.log("hello?");
-
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri);
 const connection = mongoose.connection;
@@ -19,7 +17,9 @@ connection.once('open', () => {
 });
 
 const usersRouter = require('./routes/users');
+const reservationsRouter = require('./routes/reservations');
 app.use('/users', usersRouter);
+app.use('/reservations', reservationsRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
