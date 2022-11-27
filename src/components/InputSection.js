@@ -20,7 +20,7 @@ const InputSection = () => {
             </div>
             <div className="dateWrapper">
                 <label className="dateLabel">Date</label>
-                <DatePicker onChange={onChange} value={value}className="dateSelector"/>
+                <DatePicker minDate={new Date()} maxDate={new Date("12-31-2022")} onChange={onChange} value={value}className="dateSelector"/>
             </div>
             
         </div>
