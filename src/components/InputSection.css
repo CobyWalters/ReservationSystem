@@ -20,11 +20,36 @@
     cursor: pointer;
 }
 
-.dateSelector {
+.dateSelector .react-date-picker__wrapper {
     background-color: white;
     height: 70px;
     width: 180px;
     border: black 2px solid;
     border-bottom-right-radius: 30px;
     border-top-right-radius: 30px;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.partyLabel {
+    position: absolute;
+    z-index: 10;
+    margin-left: 40px;
+    font-weight: bold;
+}
+
+.dateLabel {
+    position: absolute;
+    margin-left: 40px;
+    z-index: 10;
+    font-weight: bold;
+}
+
+.partyWrapper {
+    position: relative;
+}
+
+.dateWrapper {
+    position: relative;
 }
