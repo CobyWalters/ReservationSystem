@@ -29,3 +29,8 @@
     margin-top: 10px;
     margin-bottom: 0px;
 }
+
+.highlight {
+    color: #ff6161;
+    text-decoration: underline;
+}

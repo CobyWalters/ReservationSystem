@@ -3,13 +3,12 @@ import "./InputSection.css"
 import DatePicker from 'react-date-picker'
 
 
-const InputSection = () => {
-    const [value, onChange] = useState(new Date())
+const InputSection = ({ setChosenDate, chosenDate, setChosenPartySize }) => {
     return(
         <div className="inputSectionContainer">
             <div className="partyWrapper">
                 <label className="partyLabel">Party Size</label>
-                <select className="partySelector">
+                <select onChange={()=>{setChosenPartySize(document.getElementById("party").value)}} className="partySelector" id="party">
                     <option selected value="1">1 Person</option>
                     <option value="2">2 People</option>
                     <option value="3">3 People</option>
@@ -20,7 +19,7 @@ const InputSection = () => {
             </div>
             <div className="dateWrapper">
                 <label className="dateLabel">Date</label>
-                <DatePicker minDate={new Date()} maxDate={new Date("12-31-2022")} onChange={onChange} value={value}className="dateSelector"/>
+                <DatePicker minDate={new Date()} maxDate={new Date("12-31-2022")} onChange={setChosenDate} value={chosenDate}className="dateSelector"/>
             </div>
             
         </div>
