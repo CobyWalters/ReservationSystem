@@ -2,18 +2,24 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    username: {
-        type: String,
+const tableSchema = new Schema({
+    tableNumber: {
+        type: Number,
         required: true,
         unique: true,
-        minlength: 4,
     },
-    password: {
-        type: String,
+    tableSize: {
+        type: Number,
+        required: true
+    },
+    /*reservations: [
+
+    ],*/
+    reserved: {
+        type: Boolean,
         required: true,
-        minlength: 8,
     },
+    
     firstName: {
         type: String,
         required: true,
@@ -38,6 +44,6 @@ const userSchema = new Schema({
     timestamps: true,
 });
 
-const User = mongoose.model('User', userSchema);
+//const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+//module.exports = User;
