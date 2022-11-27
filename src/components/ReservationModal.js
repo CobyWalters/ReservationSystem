@@ -15,7 +15,7 @@ const ReservationModal = ({ closeModal }) => {
                 <div className="body">
                     <input className="input"placeholder="Username"></input>
                     <input className="input"placeholder="Password"></input>
-                    <button className="logInButton">Log In</button>
+                    <button className="logInButton">Log In and Make Reservation</button>
                     <h1>Or</h1>
                     <input className="input"placeholder="First Name"></input>
                     <input className="input"placeholder="Last Name"></input>
