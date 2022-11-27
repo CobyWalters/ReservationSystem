@@ -1,3 +1,15 @@
+.grayedOut {
+    width: 208px;
+    height: 64px;
+    color: black;
+    background-color: grey;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 20px 50px;
+    border-radius: 5px;
+    border: none;
+}
+
 .timeButton {
     width: 208px;
     height: 64px;

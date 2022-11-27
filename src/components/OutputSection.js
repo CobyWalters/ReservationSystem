@@ -11,7 +11,7 @@ const OutputSection = () => {
     const [timeOptions, setTimeOptions] = React.useState(times)
 
     const timeElements = timeOptions.map(timeOption => (
-        <button onClick= {()=>{setOpenModal(true)}}key={timeOption.id} className="timeButton">
+        <button onClick= {timeOption.isAvailable? ()=>{setOpenModal(true)} : undefined}  key={timeOption.id} className={`${timeOption.isAvailable ? "timeButton" : "grayedOut"}`}>
             {timeOption.time}
         </button>
     ))
