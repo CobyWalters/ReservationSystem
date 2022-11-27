@@ -16,32 +16,39 @@ router.route('/').get(async (req, res) => {
 
 router.route('/add').post(async (req, res) => {
     // Adds a reservation to the database
-    // TO DO: Parse date info, data validation, sql injection prevention
     // TO DO: Use cookies to check if user is signed in and only allow them to make reservations for their account, admins can make any reservation they want
-    const reservationId = new mongoose.Types.ObjectId;
-    const tables = [];
-    req.body.tables.forEach(table => {
-        const tableNumber = table.tableNumber;
-        const tableSize = table.tableSize;
-        tables.push({tableNumber, tableSize}); 
-    });
-    const timeSlot = new Date(req.body.date);
-    timeSlot.setHours(req.body.hours);
-    timeSlot.setMinutes(req.body.minutes);
     const partySize = req.body.partySize;
-    const phoneNumber = req.body.phoneNumber;
+    const date = new Date(req.body.date);
+    const time = req.body.time;
+    const username = req.body.username;
     const partyFirstName = req.body.firstName;
     const partyLastName = req.body.lastName;
+    const phoneNumber = req.body.phoneNumber;
 
     // Add reservation to set of reservations
     try {
-        const newReservation = new Reservation({reservationId, tables, timeSlot, partySize, partyFirstName, partyLastName, phoneNumber});
+
+        //findTables(date, timeSlot);
+        const tables = [
+            {
+                "tableNumber": 1,
+                "tableSize": 4
+            },
+            {
+                "tableNumber": 2,
+                "tableSize": 2
+            }
+        ];
+
+        const newReservation = new Reservation({tables, partySize, date, time, username, partyFirstName, partyLastName, phoneNumber});
         await newReservation.save()
-        const user = await User.findOne({phoneNumber: phoneNumber});
-        if (user != null) {
-            // TO DO: Add to user document
-        }
-        res.json('Reservation added!');
+        //if (username != null) {
+            //const user = await User.findOne({username: username});
+            //if (user != null) {
+                // TO DO: Add to user document
+            //}
+        //}
+        res.status(200).json('Reservation added!')
     } catch (error) {
         res.status(400).json('Error: ' + error);
     }
@@ -62,5 +69,97 @@ router.route('/delete').post(async (req, res) => {
         res.status(400).json('Error: ' + error);
     }
 });
+
+router.route('/getOpenSlots').get(async (req, res) => {
+    // Returns availabilities of a certain day's timeslots
+    // TO DO: Everything, this is just a mock implementation
+    res.json({
+        lunch: [
+            {
+                time: "10:00 AM",
+                available: true
+            },
+            {
+                time: "10:30 AM",
+                available: false
+            },
+            {
+                time: "11:00 AM",
+                available: false
+            },
+            {
+                time: "11:30 AM",
+                available: true
+            },
+            {
+                time: "12:00 PM",
+                available: true
+            },
+            {
+                time: "12:30 PM",
+                available: true
+            },
+            {
+                time: "1:00 PM",
+                available: true
+            },
+            {
+                time: "1:30 PM",
+                available: true
+            },
+            {
+                time: "2:00 PM",
+                available: true
+            },
+            {
+                time: "2:30 PM",
+                available: false
+            }
+        ],
+        dinner: [
+            {
+                time: "5:00 PM",
+                available: false
+            },
+            {
+                time: "5:30 PM",
+                available: false
+            },
+            {
+                time: "6:00 PM",
+                available: false
+            },
+            {
+                time: "6:30 PM",
+                available: true
+            },
+            {
+                time: "7:00 PM",
+                available: false
+            },
+            {
+                time: "7:30 PM",
+                available: true
+            },
+            {
+                time: "8:00 PM",
+                available: true
+            },
+            {
+                time: "8:30 PM",
+                available: false
+            },
+            {
+                time: "9:00 PM",
+                available: false
+            },
+            {
+                time: "9:30 PM",
+                available: false
+            }
+        ],
+        holdFee: true
+    });
+})
 
 module.exports = router;
