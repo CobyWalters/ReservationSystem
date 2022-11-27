@@ -9,7 +9,7 @@ const userSchema = new Schema({
         unique: true,
         minlength: 4
     },
-    password: {
+    hashedPassword: {
         type: String,
         required: true,
         minlength: 8
@@ -34,8 +34,14 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        minlength: 12
+        minlength: 10
     },
+    points: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: 0
+    }
 }, {
     timestamps: true,
 });
