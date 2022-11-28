@@ -12,9 +12,10 @@ const tableSchema = new Schema({
         type: Number,
         required: true
     },
-    /*reservations: [
-
-    ],*/
+    reservations: {
+        type: Array,
+        required: true
+    },
     reserved: {
         type: Boolean,
         required: true,
@@ -43,6 +44,6 @@ const tableSchema = new Schema({
 }, {
     timestamps: true,
 });
-//const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
-//module.exports = User;
+module.exports = User;
