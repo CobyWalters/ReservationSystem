@@ -1,14 +1,27 @@
 import React, { useState } from "react"
 import "./InputSection.css"
 import DatePicker from 'react-date-picker'
+import axios from 'axios'
+
+const api = axios.create({
+    baseURL: "https://4813ce08-5be9-424b-84e6-5d418513d29f.mock.pstmn.io/reservations/getOpenSlots"
+})
 
 
-const InputSection = ({ setChosenDate, chosenDate, setChosenPartySize }) => {
+const InputSection = ({ setTimeOptions,setChosenDate, chosenDate, setChosenPartySize }) => {
+    const handleClick = () => {
+        setChosenPartySize(document.getElementById("party").value);
+        api.get('/').then(res => {
+            console.log(res.data.times[0].time)
+            setTimeOptions(res.data.times)
+        })
+    }
+
     return(
         <div className="inputSectionContainer">
             <div className="partyWrapper">
                 <label className="partyLabel">Party Size</label>
-                <select onChange={()=>{setChosenPartySize(document.getElementById("party").value)}} className="partySelector" id="party">
+                <select onChange={handleClick} className="partySelector" id="party">
                     <option selected value="1">1 Person</option>
                     <option value="2">2 People</option>
                     <option value="3">3 People</option>

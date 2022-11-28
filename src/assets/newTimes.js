@@ -12,7 +12,7 @@ export default [
     {
         id: 3,
         time: "11:00 AM",
-        isAvailable: false
+        isAvailable: true
     },   
     {
         id: 4,
@@ -22,27 +22,27 @@ export default [
     {
         id: 5,
         time: "12:00 PM",
-        isAvailable: false
+        isAvailable: true
     },   
     {
         id: 6,
         time: "12:30 PM",
-        isAvailable: true
+        isAvailable: false
     },
     {
         id: 7,
         time: "1:00 PM",
-        isAvailable: true
+        isAvailable: false
     },   
     {
         id: 8,
         time: "1:30 PM",
-        isAvailable: true
+        isAvailable: false
     },
     {
         id: 9,
         time: "2:00 PM",
-        isAvailable: false
+        isAvailable: true
     },
     {
         id: 10,

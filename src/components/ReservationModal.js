@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import "./ReservationModal.css"
 
 
-const ReservationModal = ({ setName, setOpenConfirmationModal, loggedIn, closeModal, reservationTime, reservationDate , reservationParty }) => {
+const ReservationModal = ({ ccRequired ,setName, setOpenConfirmationModal, loggedIn, closeModal, reservationTime, reservationDate , reservationParty }) => {
     return(
         <div className="modalBackground">
-            <div className={`${loggedIn ? "loggedInModalContainer" : "modalContainer"}`}>
+            <div className={`${loggedIn ? "loggedInModalContainer" : "modalContainer"} ${ccRequired ? "longModalContainer" : "shortModalContainer"}`}>
                 <button className="titleButton" onClick={()=>{closeModal(false)}}>X</button>
                 <div className="title">
                     {!loggedIn && <h1>We just need a little bit of info to make this reservation...</h1>}
@@ -16,15 +16,19 @@ const ReservationModal = ({ setName, setOpenConfirmationModal, loggedIn, closeMo
                 {!loggedIn && <div className="body">
                     <input className="input"placeholder="Username"></input>
                     <input className="input"placeholder="Password"></input>
-                    <button onClick={()=>{setOpenConfirmationModal(true); closeModal(false); setName("Logged In Users Name Here")}} className="logInButton">Log In and Make Reservation</button>
+                    {ccRequired && <input className="input"placeholder="Credit Card Number"></input>}
+                    {ccRequired &&<input className="input"placeholder="Expiration (MM/YY)"></input>}
+                    <button onClick={()=>{setOpenConfirmationModal(true); closeModal(false); setName("Logged In User")}} className="logInButton">Log In and Make Reservation</button>
                     <h1>Or</h1>
                     <input id="name" className="input"placeholder="First Name"></input>
                     <input className="input"placeholder="Last Name"></input>
                     <input className="input"placeholder="Phone Number"></input>
-                    <input className="input"placeholder="Email"></input>
+                    <input className="input"placeholder="Email"></input>                    
                 </div>
                 }
                 <div className="footer">
+                    {ccRequired && <input className="input"placeholder="Credit Card Number"></input>}
+                    {ccRequired &&<input className="input"placeholder="Expiration (MM/YY)"></input>}
                     <button onClick={()=>{setOpenConfirmationModal(true); closeModal(false); setName(document.getElementById("name").value)}} className="finishReservationButton">Finish Reservation</button>
                 </div>
             </div>
