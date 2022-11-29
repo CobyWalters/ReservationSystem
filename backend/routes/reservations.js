@@ -1,6 +1,7 @@
 const router = require('express').Router();
 let Reservation = require('../models/reservation.model');
 let User = require('../models/user.model');
+let Table = require('../models/table.model');
 const mongoose = require('mongoose');
 
 router.route('/').get(async (req, res) => {
@@ -73,7 +74,7 @@ router.route('/delete').post(async (req, res) => {
 router.route('/getOpenSlots').get(async (req, res) => {
     // Returns availabilities of a certain day's timeslots
     // TO DO: Everything, this is just a mock implementation
-    res.json({
+    /*res.json({
         timeSlots: [
             {
                 time: "1:00 PM",
@@ -157,7 +158,45 @@ router.route('/getOpenSlots').get(async (req, res) => {
             }
         ],
         holdFee: true
-    });
-})
+    });*/
+    
+    const partySize = req.body.partySize;
+    const date = new Date(req.body.date);
+    
+    timeSlots = [
+        "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM",
+        "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM",
+        "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM",
+        "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM",
+        "9:00 PM", "9:30 PM", "10:00 PM", "10:30 PM"
+    ]
+
+    //timeSlots.forEach(function(timeSlot) {
+        //console.log(timeSlot);
+    //});
+
+    try {
+        //const reservedTables = await Reservation
+            //.find({date: date, time: "1:00 PM"})
+            //.select("tables.tableNumber, tables.tableSize")
+            //.select({tableNumber: 1, tableSize: 1});
+        const a = await Reservation.aggregate([
+            {$match: {date: date, time: "1:00 PM"}},
+            {$unwind: "$tables"},
+            {$group: {_id: null, tables: {"$addToSet": "$tables"}}},
+            {$project: {_id: 0}},
+        ]).then(x => x[0]["tables"]);
+        console.log(a);
+        //if (reservation == null)
+            //throw 'Reservation does not exist.';
+
+        //await Reservation.deleteOne({'_id': req.body.id})
+        //res.json('Reservation removed!');
+        res.json('boop');
+    } catch (error) {
+        res.status(400).json('Error: ' + error);
+    }
+
+});
 
 module.exports = router;
