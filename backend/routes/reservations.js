@@ -222,7 +222,6 @@ router.route('/getOpenSlots').get(async (req, res) => {
 
         console.log(bestTable1, bestTable2);
 
-       
         //if (reservation == null)
             //throw 'Reservation does not exist.';
 
