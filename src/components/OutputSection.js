@@ -1,26 +1,28 @@
 import React from "react"
 import "./OutputSection.css"
-import times from "../assets/times"
 import { useState } from "react"
 import ReservationModal from "./ReservationModal"
+import ConfirmationModal from "./ConfirmationModal"
 
 
-const OutputSection = () => {
+const OutputSection = ( {timeOptions, chosenDate , chosenPartySize, loggedIn} ) => {
     const [openModal, setOpenModal] = useState(false);
-    
-    const [timeOptions, setTimeOptions] = React.useState(times)
+    const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
+    const [chosenTime, setChosenTime] = useState("10:00 AM");
+    const [name, setName] = useState("");
 
     const timeElements = timeOptions.map(timeOption => (
-        <button onClick= {()=>{setOpenModal(true)}}key={timeOption.id} className="timeButton">
+        <button onClick= {timeOption.isAvailable? ()=>{setOpenModal(true); setChosenTime(timeOption.time)} : undefined}  key={timeOption.id} className={`${timeOption.isAvailable ? "timeButton" : "grayedOut"}`}>
             {timeOption.time}
         </button>
     ))
 
     return(
         <div>
-            <h1 className="lunchHeader">Lunch</h1>
+            <h1 className="lunchHeader">Reservation Times For A Party Of <span className="highlight">{chosenPartySize}</span> On <span className="highlight">{chosenDate.getMonth()+1}/{chosenDate.getDate()}/{chosenDate.getFullYear()}</span></h1>
             {timeElements}
-            {openModal && <ReservationModal closeModal={setOpenModal}/>}
+            {openModal && <ReservationModal setName={setName} setOpenConfirmationModal={setOpenConfirmationModal} loggedIn={loggedIn} reservationTime={chosenTime} reservationDate={chosenDate} ccRequired={true} reservationParty={chosenPartySize} closeModal={setOpenModal}/>}
+            {openConfirmationModal && <ConfirmationModal name={name} reservationTime={chosenTime} reservationDate={chosenDate} reservationParty={chosenPartySize} closeConfirmationModal={setOpenConfirmationModal}></ConfirmationModal>}
         </div>
     )
 }

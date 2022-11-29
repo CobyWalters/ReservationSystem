@@ -3,6 +3,8 @@
     height: 300px;
     padding: 0px;
     background-image: url("../assets/Pizza_Background.jpg");
+    background-position: 0px -120px;
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,17 +14,42 @@
     padding: 20px;
     border-bottom-left-radius: 30px;
     border-top-left-radius: 30px;
-    width: 125px;
+    width: 160px;
     border: black 2px solid;
-    height: 60px;
+    height: 70px;
     cursor: pointer;
 }
 
-.dateSelector {
+.dateSelector .react-date-picker__wrapper {
     background-color: white;
-    height: 60px;
-    width: 160px;
+    height: 70px;
+    width: 180px;
     border: black 2px solid;
     border-bottom-right-radius: 30px;
     border-top-right-radius: 30px;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.partyLabel {
+    position: absolute;
+    z-index: 10;
+    margin-left: 40px;
+    font-weight: bold;
+}
+
+.dateLabel {
+    position: absolute;
+    margin-left: 40px;
+    z-index: 10;
+    font-weight: bold;
+}
+
+.partyWrapper {
+    position: relative;
+}
+
+.dateWrapper {
+    position: relative;
 }

@@ -17,16 +17,32 @@ router.route('/add').post(async (req, res) => {
     // Adds a user to the database
     // TO DO: hash password, data validation, sql injection prevention
     const username = req.body.username;
-    const password = req.body.password;
+    const hashedPassword = req.body.hashedPassword;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.email;
     const phoneNumber = req.body.phoneNumber;
-    const newUser = new User({username, password, firstName, lastName, email, phoneNumber});
+    const newUser = new User({username, hashedPassword, firstName, lastName, email, phoneNumber});
 
     try {
         await newUser.save();
         res.json('User added!');
+    } catch (error) {
+        res.status(400).json('Error: ' + error);
+    }
+});
+
+router.route('/login').post(async (req, res) => {
+    // Adds a user to the database
+    // TO DO: data validation, sql injection prevention
+    const username = req.body.username;
+    const hashedPassword = req.body.hashedPassword;
+    
+    try {
+        const user = await User.findOne({username: username, hashedPassword: hashedPassword});
+        if (user == null)
+            throw 'Username or password is incorrect';
+        res.status(200).json({firstName: user.firstName, points: user.points});
     } catch (error) {
         res.status(400).json('Error: ' + error);
     }
