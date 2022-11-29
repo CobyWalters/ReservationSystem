@@ -41,7 +41,8 @@ const reservationSchema = new Schema({
     phoneNumber: {
         type: String,
         required: true,
-        minlength: 12
+        minlength: 10,
+        maxlength: 10
     }
 }, {
     timestamps: true
