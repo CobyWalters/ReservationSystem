@@ -20,7 +20,9 @@ const OutputSection = ( {timeOptions, chosenDate , chosenPartySize, loggedIn} ) 
     return(
         <div>
             <h1 className="lunchHeader">Reservation Times For A Party Of <span className="highlight">{chosenPartySize}</span> On <span className="highlight">{chosenDate.getMonth()+1}/{chosenDate.getDate()}/{chosenDate.getFullYear()}</span></h1>
-            {timeElements}
+            <div>
+                {timeElements}
+            </div>
             {openModal && <ReservationModal setName={setName} setOpenConfirmationModal={setOpenConfirmationModal} loggedIn={loggedIn} reservationTime={chosenTime} reservationDate={chosenDate} ccRequired={true} reservationParty={chosenPartySize} closeModal={setOpenModal}/>}
             {openConfirmationModal && <ConfirmationModal name={name} reservationTime={chosenTime} reservationDate={chosenDate} reservationParty={chosenPartySize} closeConfirmationModal={setOpenConfirmationModal}></ConfirmationModal>}
         </div>

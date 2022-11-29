@@ -4,16 +4,16 @@ import DatePicker from 'react-date-picker'
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: "https://4813ce08-5be9-424b-84e6-5d418513d29f.mock.pstmn.io/reservations/getOpenSlots"
+    baseURL: "http://localhost:5000"
 })
 
 
 const InputSection = ({ setTimeOptions,setChosenDate, chosenDate, setChosenPartySize }) => {
     const handleClick = () => {
         setChosenPartySize(document.getElementById("party").value);
-        api.get('/').then(res => {
-            console.log(res.data.times[0].time)
-            setTimeOptions(res.data.times)
+        api.get('/reservations/getOpenSlots').then(res => {
+            console.log(res.data)
+            setTimeOptions(res.data.timeSlots)
         })
     }
 

@@ -9,7 +9,7 @@ const HomePage = () => {
     const [chosenDate, setChosenDate] = useState(new Date())
     const [chosenPartySize , setChosenPartySize] = useState(1);
     const [loggedIn , setLoggedIn] = useState(false);
-    const [points , setPoints] = useState(0)
+    const [points , setPoints] = useState(0);
     const [timeOptions, setTimeOptions] = useState(times);
 
     return(
