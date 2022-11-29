@@ -25,14 +25,13 @@ router.route('/add').post(async (req, res) => {
     const partyFirstName = req.body.firstName;
     const partyLastName = req.body.lastName;
     const phoneNumber = req.body.phoneNumber;
-
     // Add reservation to set of reservations
     try {
 
         //findTables(date, timeSlot);
         const tables = [
             {
-                "tableNumber": 1,
+                "tableNumber": 5,
                 "tableSize": 4
             },
             {
@@ -41,7 +40,7 @@ router.route('/add').post(async (req, res) => {
             }
         ];
 
-        const newReservation = new Reservation({tables, partySize, date, time, username, partyFirstName, partyLastName, phoneNumber});
+        const newReservation = new Reservation({tables, partySize, date, time, partyFirstName, partyLastName, phoneNumber});
         await newReservation.save()
         //if (username != null) {
             //const user = await User.findOne({username: username});
@@ -176,17 +175,51 @@ router.route('/getOpenSlots').get(async (req, res) => {
     //});
 
     try {
-        //const reservedTables = await Reservation
-            //.find({date: date, time: "1:00 PM"})
-            //.select("tables.tableNumber, tables.tableSize")
-            //.select({tableNumber: 1, tableSize: 1});
-        const a = await Reservation.aggregate([
+
+        const reservedTables = await Reservation.aggregate([
             {$match: {date: date, time: "1:00 PM"}},
             {$unwind: "$tables"},
             {$group: {_id: null, tables: {"$addToSet": "$tables"}}},
-            {$project: {_id: 0}},
-        ]).then(x => x[0]["tables"]);
-        console.log(a);
+            {$project: {_id: 0, tables: {_id: 0}}},
+        ]).then(response => response[0]["tables"]);
+        
+        const allTables = await Table.find().select({_id: 0, tableNumber: 1, tableSize: 1}).sort({tableSize: "ascending"});
+
+        // availableTables is the difference of the set allTables and the set reservedTables
+        const availableTables = allTables.filter(function(a) {
+            return !reservedTables.some(function(b) {
+                return a.tableNumber == b.tableNumber;
+            });
+        });
+        
+        // Search for an available single table
+        for (let i = 0; i < availableTables.length; ++i) {
+            if (availableTables[i].tableSize > partySize * 2) {
+                break;
+            } else if (availableTables[i].tableSize >= partySize) {
+                console.log(availableTables[i]);
+                break;
+            }
+        }
+
+        // Search for an available double table
+        let bestTable1, bestTable2;
+        let bestSize = 1000; //arbitrary max value
+        for (let i = 0; i < availableTables.length; ++i) {
+            for (let j = i + 1; j < availableTables.length; ++j) {
+                const combinedSize = availableTables[i].tableSize + availableTables[j].tableSize;
+                if (combinedSize > partySize * 2)
+                    break;
+                if (combinedSize < partySize)
+                    continue;
+                if (combinedSize >= bestSize)
+                    break; 
+                bestTable1 = availableTables[i];
+                bestTable2 = availableTables[j];
+                bestSize = combinedSize;
+            }
+        }
+        console.log(bestTable1, bestTable2);
         //if (reservation == null)
             //throw 'Reservation does not exist.';
 
