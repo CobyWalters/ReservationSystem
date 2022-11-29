@@ -12,7 +12,16 @@ const userSchema = new Schema({
     hashedPassword: {
         type: String,
         required: true,
-        minlength: 8
+        unique: true,
+        minlength: [8, 'password too short'],
+        maxLength: [25, 'password too long'],
+        validate: {
+            validator: function(v) {
+                const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+                return specialChars.test(v);
+            },
+            message: "passwords must contain at least one special character"
+        }
     },
     firstName: {
         type: String,
@@ -34,7 +43,14 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        minlength: 10
+        minlength: [10, 'format: ##########'],
+        maxLength: [10, 'format: ##########'],
+        validate: {
+            validator: function(v) {
+                return !isNaN(v);
+            },
+            message: 'only type numbers'
+        }
     },
     points: {
         type: Number,
