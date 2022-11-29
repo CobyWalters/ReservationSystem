@@ -74,31 +74,7 @@ router.route('/getOpenSlots').get(async (req, res) => {
     // Returns availabilities of a certain day's timeslots
     // TO DO: Everything, this is just a mock implementation
     res.json({
-        lunch: [
-            {
-                time: "10:00 AM",
-                available: true
-            },
-            {
-                time: "10:30 AM",
-                available: false
-            },
-            {
-                time: "11:00 AM",
-                available: false
-            },
-            {
-                time: "11:30 AM",
-                available: true
-            },
-            {
-                time: "12:00 PM",
-                available: true
-            },
-            {
-                time: "12:30 PM",
-                available: true
-            },
+        timeSlots: [
             {
                 time: "1:00 PM",
                 available: true
@@ -114,9 +90,23 @@ router.route('/getOpenSlots').get(async (req, res) => {
             {
                 time: "2:30 PM",
                 available: false
-            }
-        ],
-        dinner: [
+            },
+            {
+                time: "3:00 AM",
+                available: false
+            },
+            {
+                time: "3:30 AM",
+                available: true
+            },
+            {
+                time: "4:00 PM",
+                available: true
+            },
+            {
+                time: "4:30 PM",
+                available: true
+            },
             {
                 time: "5:00 PM",
                 available: false
@@ -155,6 +145,14 @@ router.route('/getOpenSlots').get(async (req, res) => {
             },
             {
                 time: "9:30 PM",
+                available: false
+            },
+            {
+                time: "10:00 PM",
+                available: false
+            },
+            {
+                time: "10:30 PM",
                 available: false
             }
         ],
