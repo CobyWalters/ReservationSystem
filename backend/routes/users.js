@@ -1,6 +1,7 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 router.route('/').get(async (req, res) => {
     // Returns all users in the database
