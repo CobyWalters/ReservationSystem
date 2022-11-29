@@ -5,7 +5,7 @@ import ReservationModal from "./ReservationModal"
 import ConfirmationModal from "./ConfirmationModal"
 
 
-const OutputSection = ( {timeOptions, chosenDate , chosenPartySize, loggedIn} ) => {
+const OutputSection = ( { holdFeeNeeded ,timeOptions, chosenDate , chosenPartySize, loggedIn} ) => {
     const [openModal, setOpenModal] = useState(false);
     const [openConfirmationModal, setOpenConfirmationModal] = useState(false);
     const [chosenTime, setChosenTime] = useState("10:00 AM");
@@ -23,7 +23,7 @@ const OutputSection = ( {timeOptions, chosenDate , chosenPartySize, loggedIn} ) 
             <div>
                 {timeElements}
             </div>
-            {openModal && <ReservationModal setName={setName} setOpenConfirmationModal={setOpenConfirmationModal} loggedIn={loggedIn} reservationTime={chosenTime} reservationDate={chosenDate} ccRequired={true} reservationParty={chosenPartySize} closeModal={setOpenModal}/>}
+            {openModal && <ReservationModal setName={setName} setOpenConfirmationModal={setOpenConfirmationModal} loggedIn={loggedIn} reservationTime={chosenTime} reservationDate={chosenDate} ccRequired={holdFeeNeeded} reservationParty={chosenPartySize} closeModal={setOpenModal}/>}
             {openConfirmationModal && <ConfirmationModal name={name} reservationTime={chosenTime} reservationDate={chosenDate} reservationParty={chosenPartySize} closeConfirmationModal={setOpenConfirmationModal}></ConfirmationModal>}
         </div>
     )

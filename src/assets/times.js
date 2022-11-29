@@ -3,12 +3,12 @@ export default [
         id: 1,
         time: "10:00 AM",
         available: true
-    },   
+    },
     {
         id: 2,
         time: "10:30 AM",
         available: true
-    },   
+    },
     {
         id: 3,
         time: "11:00 AM",

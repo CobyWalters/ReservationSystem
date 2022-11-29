@@ -8,12 +8,13 @@ const api = axios.create({
 })
 
 
-const InputSection = ({ setTimeOptions,setChosenDate, chosenDate, setChosenPartySize }) => {
+const InputSection = ({ setHoldFeeNeeded,setTimeOptions,setChosenDate, chosenDate, setChosenPartySize }) => {
     const handleClick = () => {
         setChosenPartySize(document.getElementById("party").value);
         api.get('/reservations/getOpenSlots').then(res => {
             console.log(res.data)
             setTimeOptions(res.data.timeSlots)
+            setHoldFeeNeeded(res.data.holdFee)
         })
     }
 

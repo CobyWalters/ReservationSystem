@@ -1,5 +1,5 @@
 {
-    "ccNeeded" : true,
+    "holdFee" : true,
     "times" : [
         {
             "id": 1,

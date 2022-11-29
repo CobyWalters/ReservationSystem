@@ -11,12 +11,13 @@ const HomePage = () => {
     const [loggedIn , setLoggedIn] = useState(false);
     const [points , setPoints] = useState(0);
     const [timeOptions, setTimeOptions] = useState(times);
+    const [holdFeeNeeded, setHoldFeeNeeded] = useState(false);
 
     return(
         <div>
             <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} points={points} setPoints={setPoints}/>
-            <InputSection setTimeOptions={setTimeOptions} chosenDate={chosenDate} setChosenDate={setChosenDate} setChosenPartySize={setChosenPartySize}/>
-            <OutputSection timeOptions={timeOptions} chosenDate={chosenDate} chosenPartySize={chosenPartySize} loggedIn={loggedIn}/>
+            <InputSection setHoldFeeNeeded={setHoldFeeNeeded} setTimeOptions={setTimeOptions} chosenDate={chosenDate} setChosenDate={setChosenDate} setChosenPartySize={setChosenPartySize}/>
+            <OutputSection holdFeeNeeded={holdFeeNeeded} timeOptions={timeOptions} chosenDate={chosenDate} chosenPartySize={chosenPartySize} loggedIn={loggedIn}/>
         </div>
     )
 }
