@@ -12,38 +12,7 @@ const tableSchema = new Schema({
         type: Number,
         required: true
     },
-    /*reservations: {
-        type: Array,
-        required: true
-    }, */
-    reserved: {
-        type: Boolean,
-        required: true,
-    },
-    
-    firstName: {
-        type: String,
-        required: true,
-
-    },
-    lastName: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    phoneNumber: {
-        type: String,
-        required: true,
-        unique: true,
-        minlength: 12
-    },
-}, {
-    timestamps: true,
-});
+},);
 const Table = mongoose.model('Table', tableSchema);
 
 module.exports = Table;
