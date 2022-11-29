@@ -219,7 +219,9 @@ router.route('/getOpenSlots').get(async (req, res) => {
                 bestSize = combinedSize;
             }
         }
+
         console.log(bestTable1, bestTable2);
+
         //if (reservation == null)
             //throw 'Reservation does not exist.';
 

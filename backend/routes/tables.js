@@ -1,6 +1,4 @@
 const router = require('express').Router();
-let User = require('../models/user.model');
-let Reservation = require('../models/reservation.model');
 let Table = require('../models/table.model');
 const mongoose = require('mongoose');
  
@@ -17,7 +15,7 @@ router.route('/').get(async (req, res) => {
 router.route('/add').post(async (req, res) => {
     const tableNumber = req.body.tableNumber;
     const tableSize = req.body.tableSize;
-    const newTable = new Table({tableNumber, tableSize, reserved, firstName, lastName, email, phoneNumber});
+    const newTable = new Table({tableNumber, tableSize});
     try {
         await newTable.save();
         res.json('Table data updated!');
