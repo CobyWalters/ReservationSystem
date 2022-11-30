@@ -21,11 +21,11 @@ router.route('/add').post(async (req, res) => {
     const partySize = req.body.partySize;
     const date = new Date(req.body.date);
     const time = req.body.time;
-    const username = req.body.username;
+
     const partyFirstName = req.body.firstName;
     const partyLastName = req.body.lastName;
     const phoneNumber = req.body.phoneNumber;
-    // Add reservation to set of reservations
+
     try {
         const availableTables = await findAvailableTables(date, time);
         const tables = await checkAvailabilityAndReserve(availableTables, partySize);
@@ -39,13 +39,10 @@ router.route('/add').post(async (req, res) => {
 
 router.route('/delete').post(async (req, res) => {
     // Deletes a reservation from the database
-    // TO DO: data validation, sql injection prevention
-    // TO DO: Use cookies so that only users can delete their own reservations and admins can delete whatever they want
     try {
         const reservation = await Reservation.findOne({'_id': req.body.id})
         if (reservation == null)
             throw 'Reservation does not exist.';
-
         await Reservation.deleteOne({'_id': req.body.id})
         res.json('Reservation removed!');
     } catch (error) {
@@ -55,10 +52,8 @@ router.route('/delete').post(async (req, res) => {
 
 router.route('/getOpenSlots').get(async (req, res) => {
     // Returns availabilities of a certain day's timeslots
-    
     const partySize = req.body.partySize;
     const date = new Date(req.body.date);
-    
     timeSlots = [
         "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM",
         "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM",
@@ -70,16 +65,13 @@ router.route('/getOpenSlots').get(async (req, res) => {
     var response = {timeSlots: [], holdFee: isHoliday(date)};
 
     try {
-
         var allAvailableTables = [];
         for (let i = 0; i < timeSlots.length; ++i) {
             allAvailableTables.push(findAvailableTables(date, timeSlots[i]));
         }
-
         for (let i = 0; i < timeSlots.length; ++i) {
             response.timeSlots.push({timeSlot: timeSlots[i], availability: checkAvailability(await allAvailableTables[i], partySize)})
         }
-
         response.timeSlots.sort(a => a);
         res.status(200).json(response);
     } catch (error) {
