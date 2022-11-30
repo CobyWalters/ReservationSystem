@@ -170,11 +170,13 @@ router.route('/getOpenSlots').get(async (req, res) => {
         "9:00 PM", "9:30 PM", "10:00 PM", "10:30 PM"
     ]
 
-    //timeSlots.forEach(function(timeSlot) {
-        //console.log(timeSlot);
-    //});
+
+    var data = {timeSlots: [], holdFee: isHighTraffic(date)};
 
     try {
+        timeSlots.forEach(function(timeSlot) {
+            const tables = findAvailableTables(date, timeSlot);
+        });
 
         const reservedTables = await Reservation.aggregate([
             {$match: {date: date, time: "1:00 PM"}},
@@ -219,20 +221,7 @@ router.route('/getOpenSlots').get(async (req, res) => {
                 bestSize = combinedSize;
             }
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
         console.log(bestTable1, bestTable2);
-=======
-
-        console.log(bestTable1, bestTable2);
-
-       
->>>>>>> 661abbe0e0ea833afcf68be1035851f37e0776ac
-=======
-
-        console.log(bestTable1, bestTable2);
-
->>>>>>> 7691f6ac9306b1a8a63d87e7d21aa6498caf7378
         //if (reservation == null)
             //throw 'Reservation does not exist.';
 
@@ -245,4 +234,85 @@ router.route('/getOpenSlots').get(async (req, res) => {
 
 });
 
+async function findAvailableTables(date, time) {
+    
+    const reservedTables = await Reservation.aggregate([
+        {$match: {date: date, time: time}},
+        {$unwind: "$tables"},
+        {$group: {_id: null, tables: {"$addToSet": "$tables"}}},
+        {$project: {_id: 0, tables: {_id: 0}}},
+    ]).then(response => response[0]["tables"]);
+    
+    const allTables = await Table.find().select({_id: 0, tableNumber: 1, tableSize: 1}).sort({tableSize: "ascending"});
+
+    // availableTables is the difference of the set allTables and the set reservedTables
+    const availableTables = allTables.filter(function(a) {
+        return !reservedTables.some(function(b) {
+            return a.tableNumber == b.tableNumber;
+        });
+    });
+    
+    return availableTables;
+}
+
+function checkAvailability(availableTables) {
+
+    // Check for single tables
+    for (let i = 0; i < availableTables.length; ++i) {
+        if (availableTables[i].tableSize > partySize * 2)
+            break;
+        if (availableTables[i].tableSize >= partySize)
+            return true;
+    }
+
+    // Check for double tables
+    for (let i = 0; i < availableTables.length; ++i) {
+        for (let j = i + 1; j < availableTables.length; ++j) {
+            const combinedSize = availableTables[i].tableSize + availableTables[j].tableSize;
+            if (combinedSize < partySize)
+                continue;
+            if (combinedSize > partySize * 2)
+                break;
+            if (combinedSize >= bestSize)
+                break; 
+            return true;
+        }
+    }
+
+    return false;
+}
+
+async function checkAvailabilityAndReserve(availableTables, res) {
+
+    // Check for single tables
+    for (let i = 0; i < availableTables.length; ++i) {
+        if (availableTables[i].tableSize > partySize * 2)
+            break;
+        if (availableTables[i].tableSize >= partySize)
+            return res.status(200).json(availableTables[i]);
+    }
+
+    // Check for double tables
+    var tables = []
+    var bestSize = 1000; //arbitrary max value
+    for (let i = 0; i < availableTables.length; ++i) {
+        for (let j = i + 1; j < availableTables.length; ++j) {
+            const combinedSize = availableTables[i].tableSize + availableTables[j].tableSize;
+            if (combinedSize < partySize)
+                continue;
+            if (combinedSize > partySize * 2)
+                break;
+            if (combinedSize >= bestSize)
+                break; 
+            tables[0] = availableTables[i];
+            tables[1] = availableTables[j];
+            bestSize = combinedSize;
+        }
+    }
+
+    if (tables.length === 0)
+        return res.status(400).json('Error: Tables no longer available.')
+
+    return res.status(200).json({tables: tables});
+}
 module.exports = router;
