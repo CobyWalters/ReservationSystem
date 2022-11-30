@@ -18,7 +18,7 @@ const reservationSchema = new Schema({
         type: Number,
         required: true,
         min: 1,
-        max: 8
+        max: 16
     },
     date: {
         type: Date,
