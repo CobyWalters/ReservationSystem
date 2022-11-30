@@ -9,13 +9,18 @@ const api = axios.create({
 
 
 const InputSection = ({ setHoldFeeNeeded,setTimeOptions,setChosenDate, chosenDate, setChosenPartySize }) => {
-    const handleClick = () => {
+    const handleClick = async () => {
+        let Party = parseInt(document.getElementById("party").value);
+        let Date = (chosenDate.getMonth() +1).toString() + "/" +(chosenDate.getDate()).toString() + "/" +(chosenDate.getFullYear()).toString().slice(-2);
         setChosenPartySize(document.getElementById("party").value);
-        api.get('/reservations/getOpenSlots').then(res => {
-            console.log(res.data)
+        try {
+            const res = await api.post('/reservations/getOpenSlots', { partySize : Party , date : Date });
+            console.log(res.data);
             setTimeOptions(res.data.timeSlots)
             setHoldFeeNeeded(res.data.holdFee)
-        })
+        } catch(err){
+            console.log(err.response.data);
+        }
     }
 
     return(
@@ -33,7 +38,7 @@ const InputSection = ({ setHoldFeeNeeded,setTimeOptions,setChosenDate, chosenDat
             </div>
             <div className="dateWrapper">
                 <label className="dateLabel">Date</label>
-                <DatePicker minDate={new Date()} maxDate={new Date("12-31-2022")} onChange={setChosenDate} value={chosenDate}className="dateSelector"/>
+                <DatePicker minDate={new Date()} maxDate={new Date("12-31-2022")} onChange={setChosenDate} onCalendarClose={handleClick} value={chosenDate} className="dateSelector"/>
             </div>
             
         </div>

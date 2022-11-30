@@ -15,7 +15,7 @@
 
 .signUpModalContainer {
     width: 500px;
-    height: 50vh;
+    height: 52vh;
     border-radius: 12px;
     background-color: white;
     box-shadow: black 0px 5px 15px;
@@ -58,4 +58,9 @@
     width: 210px;
     height: 40px;
     margin: 10px 10px 10px 20px;
+}
+
+.errors {
+    font-size: 10px;
+    color: red;
 }
