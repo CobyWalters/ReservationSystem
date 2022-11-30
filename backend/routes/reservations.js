@@ -70,7 +70,7 @@ router.route('/delete').post(async (req, res) => {
     }
 });
 
-router.route('/getOpenSlots').get(async (req, res) => {
+router.route('/getOpenSlots').post(async (req, res) => {
     // Returns availabilities of a certain day's timeslots
     // TO DO: Everything, this is just a mock implementation
     /*res.json({
@@ -161,6 +161,8 @@ router.route('/getOpenSlots').get(async (req, res) => {
     
     const partySize = req.body.partySize;
     const date = new Date(req.body.date);
+    console.log(date);
+    console.log(partySize);
     
     timeSlots = [
         "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM",
