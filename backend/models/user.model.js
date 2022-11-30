@@ -43,8 +43,8 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        minlength: [10, 'format: ##########'],
-        maxLength: [10, 'format: ##########'],
+        minlength: [10, 'phone number format: ##########'],
+        maxLength: [10, 'phone number format: ##########'],
         validate: {
             validator: function(v) {
                 return !isNaN(v);

@@ -11,8 +11,8 @@ const tableSchema = new Schema({
     tableSize: {
         type: Number,
         required: true
-    },
-},);
+    }
+});
 const Table = mongoose.model('Table', tableSchema);
 
 module.exports = Table;

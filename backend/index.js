@@ -1,3 +1,6 @@
+
+// THIS FILE TESTS THAT DATA VALIDATION WORKS PROPERLY IN USER.MODEL.JS
+
 'use strict'
 const express = require('express');
 const cors = require('cors');
@@ -15,13 +18,13 @@ const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {useNewUrlParser: true,useUnifiedTopology: true});
 const connection = mongoose.connection;
 var user = new User();
-user.username = 'h';
-user.hashedPassword = 'h';
-user.firstName = 'h';
-user.lastName = 'h';
-user.email = 'h';
-user.phoneNumber = 'h';
-user.points = 'h';
+user.username = 'blahajluvr1998';
+user.hashedPassword = 'chickensoup*';
+user.firstName = 'banana';
+user.lastName = 'fofana';
+user.email = 'bigg@balls.com';
+user.phoneNumber = '4206666969';
+user.points = '1000000000';
 user.save(function (error,document) {
     //check for errors
     let errors = getErrors(error);
@@ -31,23 +34,36 @@ user.save(function (error,document) {
 function getErrors(error) {
     let errorArray = [];
     if (error) {
-        if (error.errors['category']) {
-            console.log(error.errors['category'].message)
-            errorArray.push('category');
+        if (error.errors['username']) {
+            console.log(error.errors['username'].message)
+            errorArray.push('username');
         }
-        if (error.errors['name']) {
-            console.log(error.errors['name'].message)
-            errorArray.push('name');
+        if (error.errors['hashedPassword']) {
+            console.log(error.errors['hashedPassword'].message)
+            errorArray.push('hashedPassword');
         }
-        if (error.errors['code']) {
-            console.log(error.errors['code'].message)
-            errorArray.push('code');
+        if (error.errors['firstName']) {
+            console.log(error.errors['firstName'].message)
+            errorArray.push('firstName');
         }
-        if (error.errors['quantity']) {
-            console.log(error.errors['quantity'].message)
-            errorArray.push('quantity');
+        if (error.errors['lastName']) {
+            console.log(error.errors['lastName'].message)
+            errorArray.push('lastName');
+        }
+        if (error.errors['email']) {
+            console.log(error.errors['email'].message)
+            errorArray.push('email');
+        }
+        if (error.errors['phoneNumber']) {
+            console.log(error.errors['phoneNumber'].message)
+            errorArray.push('phoneNumber');
+        }
+        if (error.errors['points']) {
+            console.log(error.errors['points'].message)
+            errorArray.push('points');
         }
     } else {
-        console.log('No Errors Product Saved Succefully')
+        console.log('No Errors Product Saved Succefully');
     }
-    return errorArray;};
+    return errorArray;
+};
