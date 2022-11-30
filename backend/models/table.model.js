@@ -10,7 +10,9 @@ const tableSchema = new Schema({
     },
     tableSize: {
         type: Number,
-        required: true
+        required: true,
+        min: 2,
+        max: 16
     }
 });
 const Table = mongoose.model('Table', tableSchema);

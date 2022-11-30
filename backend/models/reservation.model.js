@@ -18,7 +18,7 @@ const reservationSchema = new Schema({
         type: Number,
         required: true,
         min: 1,
-        max: 8
+        max: [16, 'No more than 16 people to a party']
     },
     date: {
         type: Date,
@@ -41,7 +41,14 @@ const reservationSchema = new Schema({
     phoneNumber: {
         type: String,
         required: true,
-        minlength: 12
+        minlength: [10, 'phone number format: ##########'],
+        maxLength: [10, 'phone number format: ##########'],
+        validate: {
+            validator: function(v) {
+                return !isNaN(v);
+            },
+            message: 'only type numbers'
+        }
     }
 }, {
     timestamps: true
