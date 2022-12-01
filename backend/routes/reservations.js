@@ -3,6 +3,7 @@ let Reservation = require('../models/reservation.model');
 let User = require('../models/user.model');
 const mongoose = require('mongoose');
 
+
 router.route('/').get(async (req, res) => {
     // Returns all reservations in the database
     // TO DO: Use cookies, this should be admin only
@@ -71,25 +72,25 @@ router.route('/delete').post(async (req, res) => {
 });
 
 router.route('/reserveWhenLoggedIn').post(async (req, res) => {
-    const user = req.body.user;
+    const username = req.body.username;
     const partySize = req.body.partySize;
     const date = new Date(req.body.date);
     const time = req.body.time;
-    const username = user.username;
-    const partyFirstName = user.firstName;
-    const partyLastName = user.lastName;
-    const phoneNumber = user.phoneNumber;
-
+    
     try {
+
+        // lookup to find out user info
+        const user = await User.findOne({username: username});
+        if (user == null) {
+            throw 'User could not be found.'
+        }
+        const partyFirstName = user.firstName;
+        const partyLastName = user.lastName;
+        const phoneNumber = user.phoneNumber;
         const newReservation = new Reservation({tables, partySize, date, time, username, partyFirstName, partyLastName, phoneNumber});
         await newReservation.save()
-        //if (username != null) {
-            //const user = await User.findOne({username: username});
-            //if (user != null) {
-                // TO DO: Add to user document
-            //}
-        //}
         res.status(200).json('Reservation added!')
+
     } catch (error) {
         res.status(400).json('Error: ' + error);
     }
