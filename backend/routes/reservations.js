@@ -15,6 +15,33 @@ router.route('/').get(async (req, res) => {
     }
 })
 
+router.route('/reserveWhenLoggedIn').post(async (req, res) => {
+    const username = req.body.username;
+    const partySize = req.body.partySize;
+    const date = new Date(req.body.date);
+    const time = req.body.time;
+    
+    try {
+
+        // lookup to find out user info
+        const user = await User.findOne({username: username});
+        if (user == null) {
+            throw 'User could not be found.'
+        }
+        const partyFirstName = user.firstName;
+        const partyLastName = user.lastName;
+        const phoneNumber = user.phoneNumber;
+        const availableTables = await findAvailableTables(date, time);
+        const tables = await checkAvailabilityAndReserve(availableTables, partySize);
+        const newReservation = new Reservation({tables, partySize, date, time, username, partyFirstName, partyLastName, phoneNumber});
+        await newReservation.save()
+        res.status(200).json('Reservation added!')
+
+    } catch (error) {
+        res.status(400).json('Error: ' + error);
+    }
+});
+
 router.route('/add').post(async (req, res) => {
     // Adds a reservation to the database
     // TO DO: Use cookies to check if user is signed in and only allow them to make reservations for their account, admins can make any reservation they want

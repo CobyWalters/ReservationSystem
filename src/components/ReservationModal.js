@@ -44,8 +44,13 @@ const ReservationModal = ({  usernameState, passwordState,ccRequired ,setName, s
             setErrors();
             //TRY TO RESERVE
             try {
-            } catch (err2){
                 const res2 = await api.post('reservations/reserveWhenLoggedIn', { username: usernameReservation, partySize : reservationParty, date : formattedDate, time: reservationTime,   });
+                setOpenConfirmationModal(true);
+                closeModal(false);
+                setName("Logged In User");
+            } catch (err2){
+                console.log(err2.response.data);
+                setErrors(err2.response.data);
             }
             //if successfull 
             //setOpenConfirmationModal(true); closeModal(false); setName("Logged In User")

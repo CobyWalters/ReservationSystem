@@ -12,7 +12,7 @@ const OutputSection = ( { usernameState, passwordState, holdFeeNeeded ,timeOptio
     const [name, setName] = useState("");
 
     const timeElements = timeOptions.map(timeOption => (
-        <button onClick= {timeOption.availability? ()=>{setOpenModal(true); setChosenTime(timeOption.timeSlot)} : undefined}  key={timeOption.id} className={`${timeOption.availability ? "timeButton" : "grayedOut"}`}>
+        <button onClick= {timeOption.availability? ()=>{setOpenModal(true); setChosenTime(timeOption.timeSlot)} : undefined}  key={timeOption.timeSlot} className={`${timeOption.availability ? "timeButton" : "grayedOut"}`}>
             {timeOption.timeSlot}
         </button>
     ))

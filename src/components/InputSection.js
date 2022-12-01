@@ -26,8 +26,8 @@ const InputSection = ({ setHoldFeeNeeded,setTimeOptions,setChosenDate, chosenDat
         <div className="inputSectionContainer">
             <div className="partyWrapper">
                 <label className="partyLabel">Party Size</label>
-                <select onChange={handleClick} className="partySelector" id="party">
-                    <option selected value="1">1 Person</option>
+                <select defaultValue={"0"} onChange={handleClick} className="partySelector" id="party">
+                    <option value="1">1 Person</option>
                     <option value="2">2 People</option>
                     <option value="3">3 People</option>
                     <option value="4">4 People</option>
