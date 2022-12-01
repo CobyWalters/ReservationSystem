@@ -37,6 +37,31 @@ router.route('/add').post(async (req, res) => {
     }
 });
 
+router.route('/reserveWhenLoggedIn').post(async (req, res) => {
+    const username = req.body.username;
+    const partySize = req.body.partySize;
+    const date = new Date(req.body.date);
+    const time = req.body.time;
+    
+    try {
+
+        // lookup to find out user info
+        const user = await User.findOne({username: username});
+        if (user == null) {
+            throw 'User could not be found.'
+        }
+        const partyFirstName = user.firstName;
+        const partyLastName = user.lastName;
+        const phoneNumber = user.phoneNumber;
+        const newReservation = new Reservation({tables, partySize, date, time, username, partyFirstName, partyLastName, phoneNumber});
+        await newReservation.save()
+        res.status(200).json('Reservation added!')
+
+    } catch (error) {
+        res.status(400).json('Error: ' + error);
+    }
+});
+
 router.route('/delete').post(async (req, res) => {
     // Deletes a reservation from the database
     try {
