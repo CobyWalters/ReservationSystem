@@ -12,12 +12,14 @@ const HomePage = () => {
     const [points , setPoints] = useState(0);
     const [timeOptions, setTimeOptions] = useState(times);
     const [holdFeeNeeded, setHoldFeeNeeded] = useState(false);
+    const [passwordState, setPasswordState] = useState();
+    const [usernameState, setUsernameState] = useState();
 
     return(
         <div>
-            <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} points={points} setPoints={setPoints}/>
+            <Header setPasswordState={setPasswordState} setUsernameState={setUsernameState} loggedIn={loggedIn} setLoggedIn={setLoggedIn} points={points} setPoints={setPoints}/>
             <InputSection setHoldFeeNeeded={setHoldFeeNeeded} setTimeOptions={setTimeOptions} chosenDate={chosenDate} setChosenDate={setChosenDate} setChosenPartySize={setChosenPartySize}/>
-            <OutputSection holdFeeNeeded={holdFeeNeeded} timeOptions={timeOptions} chosenDate={chosenDate} chosenPartySize={chosenPartySize} loggedIn={loggedIn}/>
+            <OutputSection usernameState={usernameState} passwordState={passwordState} holdFeeNeeded={holdFeeNeeded} timeOptions={timeOptions} chosenDate={chosenDate} chosenPartySize={chosenPartySize} loggedIn={loggedIn}/>
         </div>
     )
 }

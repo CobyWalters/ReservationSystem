@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import "./LogInModal.css"
 import axios from 'axios'
+import { set } from "mongoose"
 
 const api = axios.create({
     baseURL: "http://localhost:5000"
@@ -9,7 +10,7 @@ const api = axios.create({
 
 
 
-const LogInModal = ({ closeModal, setLoggedIn, setPoints }) => {
+const LogInModal = ({ setPasswordState, setUsernameState,closeModal, setLoggedIn, setPoints }) => {
     const [errors, setErrors] = useState()
     
     const handleClick = async () => {
@@ -19,6 +20,8 @@ const LogInModal = ({ closeModal, setLoggedIn, setPoints }) => {
         try { 
             const res = await api.post('/users/login', { username :  user, hashedPassword : pass})
             setLoggedIn(true);
+            setUsernameState(user);
+            setPasswordState(pass);
             setPoints(res.data.points);
             closeModal(false)
         } catch (err){

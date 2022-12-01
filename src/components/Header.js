@@ -5,7 +5,7 @@ import { useState } from "react"
 import LogInModal from "./LogInModal"
 import SignUpModal from "./SignUpModal"
 
-const Header = ({ loggedIn , setLoggedIn, points , setPoints}) => {
+const Header = ({ setPasswordState, setUsernameState , loggedIn , setLoggedIn, points , setPoints}) => {
     const [openLogInModal, setOpenLogInModal] = useState(false);
     const [openSignUpModal, setOpenSignUpModal] = useState(false);
     return(
@@ -17,11 +17,11 @@ const Header = ({ loggedIn , setLoggedIn, points , setPoints}) => {
                 {!loggedIn && <button onClick= {()=>{setOpenSignUpModal(true)}} className="headerButton">Sign Up</button>}
                 {!loggedIn && <button onClick= {()=>{setOpenLogInModal(true)}} className="headerButton">Log In</button>}
                 {loggedIn && <h2 className="points">Points Balance : {points}</h2>}
-                {loggedIn && <button onClick={()=>{setLoggedIn(false)}} className="headerButton">Sign Out</button>}
+                {loggedIn && <button onClick={()=>{setLoggedIn(false); setPasswordState(); setUsernameState()}} className="headerButton">Sign Out</button>}
             </div>
             <hr className="dividerLine"/>
-            {openLogInModal && <LogInModal setLoggedIn={setLoggedIn} setPoints={setPoints} closeModal={setOpenLogInModal}/>}
-            {openSignUpModal && <SignUpModal setLoggedIn={setLoggedIn} setPoints={setPoints} closeModal={setOpenSignUpModal}/>}
+            {openLogInModal && <LogInModal setPasswordState={setPasswordState} setUsernameState={setUsernameState} setLoggedIn={setLoggedIn} setPoints={setPoints} closeModal={setOpenLogInModal}/>}
+            {openSignUpModal && <SignUpModal setPasswordState={setPasswordState} setUsernameState={setUsernameState} setLoggedIn={setLoggedIn} setPoints={setPoints} closeModal={setOpenSignUpModal}/>}
             </div>
     )
 }

@@ -7,7 +7,7 @@ const api = axios.create({
 })
 
 
-const ReservationModal = ({ ccRequired ,setName, setOpenConfirmationModal, loggedIn, closeModal, reservationTime, reservationDate , reservationParty }) => {
+const ReservationModal = ({  usernameState, passwordState,ccRequired ,setName, setOpenConfirmationModal, loggedIn, closeModal, reservationTime, reservationDate , reservationParty }) => {
     const [errors, setErrors] = useState()
     
     const handleClick_guest = async () => {
@@ -43,8 +43,30 @@ const ReservationModal = ({ ccRequired ,setName, setOpenConfirmationModal, logge
             console.log("Logged In")
             setErrors();
             //TRY TO RESERVE
+            try {
+            } catch (err2){
+                const res2 = await api.post('reservations/reserveWhenLoggedIn', { username: usernameReservation, partySize : reservationParty, date : formattedDate, time: reservationTime,   });
+            }
             //if successfull 
             //setOpenConfirmationModal(true); closeModal(false); setName("Logged In User")
+        } catch (err){
+            console.log(err.response.data);
+            setErrors(err.response.data);
+        }
+    }
+
+    const handleClick_loggedIn = async () => {
+        let formattedDate = (reservationDate.getMonth() +1).toString() + "/" +(reservationDate.getDate()).toString() + "/" +(reservationDate.getFullYear()).toString().slice(-2)
+
+        try { 
+            const res = await api.post('reservations/reserveWhenLoggedIn', { username: usernameState, password : passwordState,partySize : reservationParty, date : formattedDate, time: reservationTime });
+            console.log("Logged In")
+            setErrors();
+            //TRY TO RESERVE
+            //if successfull 
+            setOpenConfirmationModal(true);
+            closeModal(false);
+            setName("Logged In User")
         } catch (err){
             console.log(err.response.data);
             setErrors(err.response.data);
@@ -79,7 +101,7 @@ const ReservationModal = ({ ccRequired ,setName, setOpenConfirmationModal, logge
                 <div className="footer">
                     {ccRequired && <input className="input"placeholder="Credit Card Number"></input>}
                     {ccRequired &&<input className="input"placeholder="Expiration (MM/YY)"></input>}
-                    <button onClick={handleClick_guest} className="finishReservationButton">Finish Reservation</button>
+                    <button onClick={loggedIn ? handleClick_loggedIn:handleClick_guest} className="finishReservationButton">Finish Reservation</button>
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ const api = axios.create({
 
 
 
-const SignUpModal = ({ closeModal ,setLoggedIn, setPoints }) => {
+const SignUpModal = ({ setUsernameState, setPasswordState,closeModal ,setLoggedIn, setPoints }) => {
 
     const [errors, setErrors] = useState()
     
@@ -26,6 +26,8 @@ const SignUpModal = ({ closeModal ,setLoggedIn, setPoints }) => {
             setPoints(0);
             setLoggedIn(true);
             closeModal(false);
+            setUsernameState(user);
+            setPasswordState(pass);
         } catch (err){
             console.log(err.response.data);
             setErrors(err.response.data);
