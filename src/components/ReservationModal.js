@@ -30,21 +30,25 @@ const ReservationModal = ({  usernameState, passwordState,ccRequired ,setName, s
         }
     }
 
-    const handleClick_logging_in = async () => {
-        let usernameReservation = document.getElementById("user-reservation").value;
-        let passwordReservation = document.getElementById("pass-reservation").value;
-        console.log(usernameReservation);
-        console.log(passwordReservation)
+    const handleClick_signing_up = async () => {
+        let user = document.getElementById("username-new").value;
+        let pass =document.getElementById("password-new").value;
+        let fN = document.getElementById("firstName-new").value;
+        let lN = document.getElementById("lastName-new").value;
+        let phone = document.getElementById("phoneNumber-new").value;
+        let email = document.getElementById("email-new").value;
+        console.log(user);
+        console.log(pass);
         
         let formattedDate = (reservationDate.getMonth() +1).toString() + "/" +(reservationDate.getDate()).toString() + "/" +(reservationDate.getFullYear()).toString().slice(-2)
 
         try { 
-            const res = await api.post('users/login', { username: usernameReservation, hashedPassword : passwordReservation });
-            console.log("Logged In")
+            const res = await api.post('/users/add', { username :  user, hashedPassword : pass, firstName : fN, lastName : lN, email : email, phoneNumber: phone })
+            console.log("Signed Up")
             setErrors();
             //TRY TO RESERVE
             try {
-                const res2 = await api.post('reservations/reserveWhenLoggedIn', { username: usernameReservation, partySize : reservationParty, date : formattedDate, time: reservationTime,   });
+                const res2 = await api.post('reservations/reserveWhenLoggedIn', { username: user, partySize : reservationParty, date : formattedDate, time: reservationTime,   });
                 setOpenConfirmationModal(true);
                 closeModal(false);
                 setName("Logged In User");
@@ -91,11 +95,15 @@ const ReservationModal = ({  usernameState, passwordState,ccRequired ,setName, s
                     <h3 className="errors">{errors}</h3>
                 </div>
                 {!loggedIn && <div className="body">
-                    <input id="user-reservation" className="input"placeholder="Username"></input>
-                    <input id="pass-reservation" className="input"placeholder="Password"></input>
+                <input id="username-new" className="input"placeholder="New Username"></input>
+                    <input id="password-new" className="input"placeholder="New Password"></input>
+                    <input id="firstName-new" className="input"placeholder="First Name"></input>
+                    <input id="lastName-new" className="input"placeholder="Last Name"></input>
+                    <input id="phoneNumber-new" className="input"placeholder="Phone Number"></input>
+                    <input id="email-new" className="input"placeholder="Email"></input>
                     {ccRequired && <input className="input"placeholder="Credit Card Number"></input>}
                     {ccRequired &&<input className="input"placeholder="Expiration (MM/YY)"></input>}
-                    <button onClick={handleClick_logging_in} className="logInButton">Log In and Make Reservation</button>
+                    <button onClick={handleClick_signing_up} className="signUpButton">Sign Up and Make Reservation</button>
                     <h1 style={{fontSize : "20px", margin:"2px"}}>Or</h1>
                     <input id="name" className="input"placeholder="First Name"></input>
                     <input id= "lastName-reserve" className="input"placeholder="Last Name"></input>
