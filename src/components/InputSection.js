@@ -15,7 +15,6 @@ const InputSection = ({ setHoldFeeNeeded,setTimeOptions,setChosenDate, chosenDat
         setChosenPartySize(document.getElementById("party").value);
         try {
             const res = await api.post('/reservations/getOpenSlots', { partySize : Party , date : Date });
-            console.log(res.data);
             setTimeOptions(res.data.timeSlots)
             setHoldFeeNeeded(res.data.holdFee)
         } catch(err){

@@ -55,8 +55,6 @@ router.route('/getOpenSlots').post(async (req, res) => {
     const partySize = req.body.partySize;
     const date = new Date(req.body.date);
 
-    console.log(date);
-    console.log(partySize);
     
     timeSlots = [
         "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM",
@@ -190,7 +188,7 @@ function isHoliday(_date) {
         return true; // Halloween
     if (month == 11 && day == 4 && occurenceInMonth == 4)
         return true; // Thanksgiving
-    if (month == 12 && (date == 25 || date == 26)) 
+    if (month == 12 && (date == 24 || date == 25)) 
         return true; // Christmas and Christmas Eve
     if (month == 12 && date == 31)
         return true; // New Year's Eve

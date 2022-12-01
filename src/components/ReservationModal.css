@@ -33,7 +33,7 @@
 
 .loggedInModalContainer {
     width: 500px;
-    height: 40vh;
+    height: 43vh;
     border-radius: 12px;
     background-color: white;
     box-shadow: black 0px 5px 15px;
@@ -98,4 +98,9 @@
     font-size: 26px;
     margin-top: 10px;
     cursor: pointer;
+}
+
+.errors {
+    font-size: 10px;
+    color: red;
 }

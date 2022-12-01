@@ -12,14 +12,15 @@ const OutputSection = ( { holdFeeNeeded ,timeOptions, chosenDate , chosenPartySi
     const [name, setName] = useState("");
 
     const timeElements = timeOptions.map(timeOption => (
-        <button onClick= {timeOption.available? ()=>{setOpenModal(true); setChosenTime(timeOption.time)} : undefined}  key={timeOption.id} className={`${timeOption.available ? "timeButton" : "grayedOut"}`}>
-            {timeOption.time}
+        <button onClick= {timeOption.availability? ()=>{setOpenModal(true); setChosenTime(timeOption.timeSlot)} : undefined}  key={timeOption.id} className={`${timeOption.availability ? "timeButton" : "grayedOut"}`}>
+            {timeOption.timeSlot}
         </button>
     ))
 
     return(
         <div>
-            <h1 className="lunchHeader">Reservation Times For A Party Of <span className="highlight">{chosenPartySize}</span> On <span className="highlight">{chosenDate.getMonth()+1}/{chosenDate.getDate()}/{chosenDate.getFullYear()}</span></h1>
+            {timeElements.length !== 0 && <h1 className="lunchHeader">Reservation Times For A Party Of <span className="highlight">{chosenPartySize}</span> On <span className="highlight">{chosenDate.getMonth()+1}/{chosenDate.getDate()}/{chosenDate.getFullYear()}</span>{holdFeeNeeded && <span className="highlight_cc">&emsp;&emsp;&emsp;*Credit Card Hold Required</span>}</h1>}
+            {timeElements.length=== 0 &&  <h1 className="lunchHeader">Pick A Date and Party Size!</h1>}
             <div>
                 {timeElements}
             </div>

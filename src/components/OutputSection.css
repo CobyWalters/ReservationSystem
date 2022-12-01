@@ -35,3 +35,8 @@
     color: #ff6161;
     text-decoration: underline;
 }
+
+.highlight_cc {
+    color: green;
+    text-align: right;
+}
