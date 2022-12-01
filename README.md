@@ -17,4 +17,4 @@ React App:
     1 ) Open the project in an IDE
     2 ) CD into /Reservation System
     3 ) Open terminal and type in "npm start"
-    $ ) The front end will be hosted on (https://localhost:3000)
+    4 ) The front end will be hosted on (https://localhost:3000)
