@@ -96,7 +96,7 @@ const ReservationModal = ({  usernameState, passwordState,ccRequired ,setName, s
                     {ccRequired && <input className="input"placeholder="Credit Card Number"></input>}
                     {ccRequired &&<input className="input"placeholder="Expiration (MM/YY)"></input>}
                     <button onClick={handleClick_logging_in} className="logInButton">Log In and Make Reservation</button>
-                    <h1 style={{fontSize : "20px"}}>Or</h1>
+                    <h1 style={{fontSize : "20px", margin:"2px"}}>Or</h1>
                     <input id="name" className="input"placeholder="First Name"></input>
                     <input id= "lastName-reserve" className="input"placeholder="Last Name"></input>
                     <input id= "phoneNumber-reserve" className="input"placeholder="Phone Number"></input>

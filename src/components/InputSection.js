@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import "./InputSection.css"
 import DatePicker from 'react-date-picker'
 import axios from 'axios'
+import { Result } from "express-validator"
 
 const api = axios.create({
     baseURL: "http://localhost:5000"
@@ -22,6 +23,12 @@ const InputSection = ({ setHoldFeeNeeded,setTimeOptions,setChosenDate, chosenDat
         }
     }
 
+    const addDays= () =>{
+        let day = new Date();
+        day.setDate(day.getDate() +60);
+        return day;
+    }
+
     return(
         <div className="inputSectionContainer">
             <div className="partyWrapper">
@@ -33,11 +40,15 @@ const InputSection = ({ setHoldFeeNeeded,setTimeOptions,setChosenDate, chosenDat
                     <option value="4">4 People</option>
                     <option value="5">5 People</option>
                     <option value="6">6 People</option>
+                    <option value="7">7 People</option>
+                    <option value="8">8 People</option>
+                    <option value="9">9 People</option>
+                    <option value="10">10 People</option>
                 </select>
             </div>
             <div className="dateWrapper">
                 <label className="dateLabel">Date</label>
-                <DatePicker minDate={new Date()} maxDate={new Date("12-31-2022")} onChange={setChosenDate} onCalendarClose={handleClick} value={chosenDate} className="dateSelector"/>
+                <DatePicker minDate={new Date()} maxDate={addDays()} onChange={setChosenDate} onCalendarClose={handleClick} value={chosenDate} className="dateSelector"/>
             </div>
             
         </div>
